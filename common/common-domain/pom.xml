@@ -10,8 +10,4 @@
     </parent>
 
     <artifactId>common-domain</artifactId>
-
-    <properties>
-    </properties>
-
 </project>

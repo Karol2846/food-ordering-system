@@ -14,8 +14,4 @@
     <modules>
         <module>common-domain</module>
     </modules>
-
-    <properties>
-    </properties>
-
 </project>
