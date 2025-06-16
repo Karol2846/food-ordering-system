@@ -1,12 +1,12 @@
 package com.food.ordering.system.order.service.domain;
 
-import com.food.ordering.system.domain.exception.DomainException;
 import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.entity.Product;
 import com.food.ordering.system.order.service.domain.entity.Restaurant;
 import com.food.ordering.system.order.service.domain.event.OrderCancelledEvent;
 import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
 import com.food.ordering.system.order.service.domain.event.OrderPaidEvent;
+import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.ZoneId;
@@ -65,7 +65,7 @@ public class OrderDomainServiceImpl implements OrderDomainService {
 
     private void validateRestaurant(Restaurant restaurant) {
         if(!restaurant.isActive()) {
-            throw new DomainException("Restaurant with id: [%s] is not active.".formatted(restaurant.id().value()));
+            throw new OrderDomainException("Restaurant with id: [%s] is not active.".formatted(restaurant.id().value()));
         }
     }
 

@@ -22,6 +22,6 @@ public class OrderCreateCommandHandler {
         OrderCreatedEvent event = orderCreateHelper.persistOrder(createOrderCommand);
 
         orderCreatedPaymentRequestMessagePublisher.publish(event);
-         return orderDataMapper.toResponse(event.getOrder());
+         return orderDataMapper.toResponse(event.getOrder(), "Order Created Successfully");
     }
 }

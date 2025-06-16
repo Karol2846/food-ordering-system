@@ -4,4 +4,9 @@ import com.food.ordering.system.domain.valueobject.BaseId;
 
 import java.util.UUID;
 
-public record TrackingId(UUID value) implements BaseId<UUID> {}
+public record TrackingId(UUID value) implements BaseId<UUID> {
+
+    public static TrackingId from(UUID value) {
+        return new TrackingId(value);
+    }
+}

@@ -8,6 +8,7 @@ import com.food.ordering.system.order.service.domain.dto.create.CreateOrderComma
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderResponse;
 import com.food.ordering.system.order.service.domain.dto.create.OrderAddress;
 import com.food.ordering.system.order.service.domain.dto.create.OrderItem;
+import com.food.ordering.system.order.service.domain.dto.track.TrackOrderResponse;
 import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.entity.Product;
 import com.food.ordering.system.order.service.domain.entity.Restaurant;
@@ -32,6 +33,34 @@ public class OrderDataMapper {
 
     }
 
+    public Restaurant toRestaurant(CreateOrderCommand createOrderCommand) {
+        return Restaurant.builder()
+                .id(new RestaurantId(createOrderCommand.restaurantId()))
+                .products(getProducts(createOrderCommand.orderItems()))
+                .build();
+    }
+
+    public CreateOrderResponse toResponse(Order order, String message) {
+        return CreateOrderResponse.builder()
+                .orderTrackingId(order.getTrackingId().value())
+                .status(order.getOrderStatus())
+                .message(message)
+                .build();
+    }
+
+    public TrackOrderResponse toTrackOrderResponse(Order order) {
+        return TrackOrderResponse.builder()
+                .orderTrackingId(order.getTrackingId().value())
+                .status(order.getOrderStatus())
+                .failureMessages(order.getFailureMessages())
+                .build();
+    }
+
+    private List<Product> getProducts(@NotNull List<OrderItem> orderItems) {
+        return orderItems.stream().map(item ->
+                new Product(new ProductId(item.productId()))).toList();
+    }
+
     private List<com.food.ordering.system.order.service.domain.entity.OrderItem> mapOrderItems(
             List<OrderItem> orderItems) {
         return orderItems.stream()
@@ -54,25 +83,6 @@ public class OrderDataMapper {
                 .postalCode(address.postalCode())
                 .city(address.city())
                 .street(address.street())
-                .build();
-    }
-
-    public Restaurant toRestaurant(CreateOrderCommand createOrderCommand) {
-        return Restaurant.builder()
-                .id(new RestaurantId(createOrderCommand.restaurantId()))
-                .products(getProducts(createOrderCommand.orderItems()))
-                .build();
-    }
-
-    private List<Product> getProducts(@NotNull List<OrderItem> orderItems) {
-        return orderItems.stream().map(item ->
-                new Product(new ProductId(item.productId()))).toList();
-    }
-
-    public CreateOrderResponse toResponse(Order order) {
-        return CreateOrderResponse.builder()
-                .orderTrackingId(order.getTrackingId().value())
-                .status(order.getOrderStatus())
                 .build();
     }
 }
