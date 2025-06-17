@@ -8,8 +8,12 @@
         <artifactId>food-ordering-system</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
 
     <artifactId>infrastructure</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>kafka</module>
+    </modules>
 
 </project>
