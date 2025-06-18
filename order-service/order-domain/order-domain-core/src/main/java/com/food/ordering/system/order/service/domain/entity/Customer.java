@@ -5,4 +5,9 @@ import com.food.ordering.system.domain.valueobject.CustomerId;
 
 public class Customer extends BaseEntity<CustomerId> {
 
+    public Customer() {}
+
+    public Customer(CustomerId customerId) {
+        super.id(customerId);
+    }
 }
