@@ -2,7 +2,6 @@ package com.food.ordering.system.kafka.producer.service.impl;
 
 import com.food.ordering.system.kafka.producer.exception.KafkaProducerException;
 import com.food.ordering.system.kafka.producer.service.KafkaProducer;
-import com.google.common.util.concurrent.ListenableFuture;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
