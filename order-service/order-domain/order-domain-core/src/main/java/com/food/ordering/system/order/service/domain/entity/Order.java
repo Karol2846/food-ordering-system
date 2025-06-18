@@ -15,9 +15,10 @@ import lombok.Getter;
 import java.util.List;
 import java.util.UUID;
 
-@Builder
 @Getter
 public class Order extends AggregateRoot<OrderId> {
+
+    public static final String FAILURE_MESSAGE_DELIMITER = ",";
 
     private final CustomerId customerId;
     private final RestaurantId restaurantId;
@@ -28,6 +29,21 @@ public class Order extends AggregateRoot<OrderId> {
     private TrackingId trackingId;
     private OrderStatus orderStatus;
     private List<String> failureMessages;
+
+    @Builder
+    public Order(OrderId orderId, CustomerId customerId, RestaurantId restaurantId, StreetAddress deliveryAddress,
+                 Money price, List<OrderItem> orderItems, TrackingId trackingId, OrderStatus orderStatus,
+                 List<String> failureMessages) {
+        super.id(orderId);
+        this.customerId = customerId;
+        this.restaurantId = restaurantId;
+        this.deliveryAddress = deliveryAddress;
+        this.price = price;
+        this.orderItems = orderItems;
+        this.trackingId = trackingId;
+        this.orderStatus = orderStatus;
+        this.failureMessages = failureMessages;
+    }
 
     public void initializeOrder() {
         id(new OrderId(UUID.randomUUID()));

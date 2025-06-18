@@ -9,7 +9,6 @@ import lombok.Getter;
 
 import java.util.UUID;
 
-@Builder
 @Getter
 public class OrderItem extends BaseEntity<OrderItemId> {
     private OrderId orderId;
@@ -18,6 +17,16 @@ public class OrderItem extends BaseEntity<OrderItemId> {
     private final Money price;
     private final Money subTotal;
 
+    @Builder
+    public OrderItem(OrderItemId orderItemId, OrderId orderId, Product product,
+                     int quantity, Money price, Money subTotal) {
+        super.id(orderItemId);
+        this.orderId = orderId;
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+        this.subTotal = subTotal;
+    }
 
     void initializeOrderitem(OrderId orderId) {
         this.orderId = orderId;
