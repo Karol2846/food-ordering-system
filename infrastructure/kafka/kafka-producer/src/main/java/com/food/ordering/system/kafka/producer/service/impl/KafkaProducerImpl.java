@@ -21,14 +21,17 @@ public class KafkaProducerImpl<K extends Serializable, V extends SpecificRecordB
     private final KafkaTemplate<K, V> kafkaTemplate;
 
     @Override
-    public void send(String topicName, K key, V message, CompletableFuture<SendResult<K, V>> callback) {
+    public CompletableFuture<SendResult<K, V>> send(String topicName, K key, V message) {
         log.info("Sending message: {} to topic: {}", message, topicName);
 
         try {
-            CompletableFuture<SendResult<K, V>> resultFuture = kafkaTemplate.send(topicName, key, message);
+            return kafkaTemplate.send(topicName, key, message);
         } catch (KafkaException e) {
-            log.error("Error on kafka producer with key: {}, message: {} and exception: {}",  key, message, e.getMessage());
-            throw new KafkaProducerException("Error on kafka producer with key: %s, message: %s".formatted(key, message));
+
+            log.error("Error on kafka producer with key: {}, message: {} and exception: {}",
+                    key, message, e.getMessage());
+            throw new KafkaProducerException("Error on kafka producer with key: %s, message: %s"
+                    .formatted(key, message));
         }
     }
 
