@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 public record RestaurantApproveResponse(
         String id,
-        String sageId,
+        String sagaId,
         String orderId,
         String restaurantId,
         Instant createdAt,

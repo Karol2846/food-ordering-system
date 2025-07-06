@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public record PaymentResponse(
         String id,
-        String sageId,
+        String sagaId,
         String orderId,
         String paymentId,
         String customerId,
