@@ -125,7 +125,22 @@ services:
     networks:
       - ${GLOBAL_NETWORK:-kafka}
 
+  postgres:
+    image: postgres:17.2-alpine
+    container_name: food-ordering-system-postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
 
 networks:
   food-ordering-system:
     driver: bridge
+
+volumes:
+  postgres_data:

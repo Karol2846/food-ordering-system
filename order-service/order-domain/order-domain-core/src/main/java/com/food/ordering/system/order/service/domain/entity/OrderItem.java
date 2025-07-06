@@ -7,8 +7,6 @@ import com.food.ordering.system.order.service.domain.valueobject.OrderItemId;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.UUID;
-
 @Getter
 public class OrderItem extends BaseEntity<OrderItemId> {
     private OrderId orderId;
@@ -28,9 +26,9 @@ public class OrderItem extends BaseEntity<OrderItemId> {
         this.subTotal = subTotal;
     }
 
-    void initializeOrderitem(OrderId orderId) {
+    void initializeOrderitem(OrderId orderId, OrderItemId orderItemId) {
         this.orderId = orderId;
-        id(new OrderItemId(UUID.randomUUID()));
+        id(orderItemId);
     }
 
     boolean isPriceValid() {

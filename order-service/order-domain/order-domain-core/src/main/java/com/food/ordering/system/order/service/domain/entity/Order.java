@@ -7,6 +7,7 @@ import com.food.ordering.system.domain.valueobject.OrderId;
 import com.food.ordering.system.domain.valueobject.OrderStatus;
 import com.food.ordering.system.domain.valueobject.RestaurantId;
 import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
+import com.food.ordering.system.order.service.domain.valueobject.OrderItemId;
 import com.food.ordering.system.order.service.domain.valueobject.StreetAddress;
 import com.food.ordering.system.order.service.domain.valueobject.TrackingId;
 import lombok.Builder;
@@ -132,7 +133,9 @@ public class Order extends AggregateRoot<OrderId> {
     }
 
     private void initializeOrderItems() {
-        orderItems.forEach(orderItem ->
-                orderItem.initializeOrderitem(id()));
+        long itemId = 1;
+        for(OrderItem orderItem : orderItems) {
+            orderItem.initializeOrderitem(super.id(), new OrderItemId(itemId++));
+        }
     }
 }

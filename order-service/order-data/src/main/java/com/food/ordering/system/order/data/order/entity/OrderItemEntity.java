@@ -8,39 +8,49 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.UUID;
 
 import static jakarta.persistence.CascadeType.ALL;
 
-@Entity
 @Getter
 @Setter
 @Builder
-@IdClass(OrderItemEntityId.class)
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@IdClass(OrderItemEntityId.class)
 @Table(name = "order_items")
+@Entity
 public class OrderItemEntity {
 
     @Id
-    @EqualsAndHashCode.Include
-    private UUID id;
+    private Long id;
 
     @Id
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "order_id")
-    @EqualsAndHashCode.Include
+    @JoinColumn(name = "ORDER_ID")
     private OrderEntity order;
 
     private UUID productId;
     private BigDecimal price;
     private Integer quantity;
     private BigDecimal subTotal;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItemEntity that = (OrderItemEntity) o;
+        return id.equals(that.id) && order.equals(that.order);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, order);
+    }
 }

@@ -30,7 +30,7 @@ public class OrderAddressEntity {
     private UUID id;
 
     @OneToOne(cascade = ALL)
-    @JoinColumn(name = "orders_id")
+    @JoinColumn(name = "order_id")
     private OrderEntity order;
 
     private String postalCode;

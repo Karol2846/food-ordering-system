@@ -3,7 +3,6 @@ package com.food.ordering.system.order.data.order.entity;
 
 import com.food.ordering.system.domain.valueobject.OrderStatus;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -46,7 +45,7 @@ public class OrderEntity {
     private OrderStatus orderStatus;
     private String failureMessages;
 
-    @OneToOne(mappedBy = "order_id", cascade = ALL)
+    @OneToOne(mappedBy = "order", cascade = ALL)
     private OrderAddressEntity address;
 
     @OneToMany(mappedBy = "order", cascade = ALL)
