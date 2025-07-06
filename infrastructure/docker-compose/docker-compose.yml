@@ -134,8 +134,26 @@ services:
       - POSTGRES_PASSWORD=password
     ports:
       - "5432:5432"
+    networks:
+      - food-ordering-system
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: food-ordering-system-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    ports:
+      - "8050:80"
+    depends_on:
+      - postgres
+    networks:
+      - food-ordering-system
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
 
 networks:
@@ -144,3 +162,4 @@ networks:
 
 volumes:
   postgres_data:
+  pgadmin_data:
