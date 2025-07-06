@@ -18,7 +18,7 @@ import java.util.List;
 import static com.food.ordering.system.order.service.domain.entity.Order.FAILURE_MESSAGE_DELIMITER;
 
 @Component
-public class OrderDataMapper {
+public class OrderDataEntityMapper {
 
     public OrderEntity mapToOrderEntity(Order order) {
         OrderEntity orderEntity = OrderEntity.builder()
